@@ -25,9 +25,23 @@ var UserList = Backbone.View.extend({
 
 var userList = new UserList();
 
+//------------------------
+
+var EditUser = Backbone.View.extend({
+	el: ".page",
+	render: function() {
+		var self = this;
+		var template = _.template($("#edit-user-template").html(), {});
+		self.$el.html(template);
+	}
+});
+
+var editUser = new EditUser();
+
 var Router = Backbone.Router.extend({
 	routes: {
-		"": "home"
+		"": "home",
+		"new": "editUser"
 	}
 });
 
@@ -35,6 +49,11 @@ var router = new Router();
 router.on("route:home", function() {
 	console.log("this is the home page");
 	userList.render();
+});
+
+router.on("route:editUser", function() {
+	console.log("edit user form");
+	editUser.render();
 });
 
 Backbone.history.start();
